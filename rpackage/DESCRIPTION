@@ -1,0 +1,43 @@
+Package: rpkgdev
+Title: R Package Development Workflow Tools
+Version: 0.1.0
+Authors@R:
+    person("Blas", "Benito", , "blasbenito@gmail.com", role = c("aut", "cre"))
+Description: Comprehensive suite of development workflow functions for R package
+    development. Provides dev_*() functions for common tasks like testing,
+    checking, building documentation, and CRAN release preparation. Includes
+    deploy_template() to scaffold new packages with complete development
+    infrastructure.
+License: MIT + file LICENSE
+URL: https://github.com/blasbenito/rpkgdev
+BugReports: https://github.com/blasbenito/rpkgdev/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Depends:
+    R (>= 3.5)
+Imports:
+    cli,
+    desc,
+    devtools (>= 2.4.0),
+    fs,
+    usethis (>= 2.0.0)
+Suggests:
+    codetools,
+    covr,
+    goodpractice,
+    knitr,
+    microbenchmark,
+    pkgdown,
+    pkgnet,
+    profvis,
+    rcmdcheck,
+    rhub,
+    rmarkdown,
+    roxygen2,
+    roxyglobals,
+    rstudioapi,
+    spelling,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr

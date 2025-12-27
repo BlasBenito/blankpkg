@@ -63,7 +63,6 @@
 #
 # ============================================================================ #
 
-
 # ============================================================================ #
 # SECTION 1: SUCCESS CASES - Default Behavior
 # ============================================================================ #
@@ -108,11 +107,11 @@ test_that("lm_model produces a well-fitted model with dummy_df", {
   # Why test this? The dummy_df was created with a specific linear relationship,
   # so we should recover it with good fit
   r_squared <- summary(model)$r.squared
-  expect_gt(r_squared, 0.8)  # expect greater than 0.8
+  expect_gt(r_squared, 0.8) # expect greater than 0.8
 
   # EXPECTATION 2: All predictors are significant (p < 0.05)
   # Why test this? With 1000 observations and true relationships, all should be significant
-  p_values <- summary(model)$coefficients[-1, "Pr(>|t|)"]  # exclude intercept
+  p_values <- summary(model)$coefficients[-1, "Pr(>|t|)"] # exclude intercept
   expect_true(all(p_values < 0.05))
 })
 
@@ -131,12 +130,12 @@ test_that("lm_model works with explicit response argument", {
 
   # EXPECTATION: Formula uses specified response
   expect_equal(
-    as.character(formula(model))[2],  # Left side of formula
+    as.character(formula(model))[2], # Left side of formula
     "a"
   )
 
   # EXPECTATION: All other columns used as predictors
-  expect_length(coef(model), 10)  # intercept + 9 predictors
+  expect_length(coef(model), 10) # intercept + 9 predictors
 })
 
 
@@ -152,7 +151,7 @@ test_that("lm_model can use any column as response", {
   expect_equal(names(model$model)[1], "b")
 
   # EXPECTATION: 'b' is not in the predictors
-  predictor_names <- names(coef(model))[-1]  # exclude intercept
+  predictor_names <- names(coef(model))[-1] # exclude intercept
   expect_false("b" %in% predictor_names)
 })
 
@@ -171,7 +170,7 @@ test_that("lm_model works with subset of predictors", {
   model <- lm_model(response = "a", predictors = c("b", "c", "d"))
 
   # EXPECTATION 1: Model has correct number of coefficients
-  expect_length(coef(model), 4)  # intercept + 3 predictors
+  expect_length(coef(model), 4) # intercept + 3 predictors
 
   # EXPECTATION 2: Coefficient names match specified predictors
   expect_equal(
@@ -259,7 +258,7 @@ test_that("lm_model works with custom data and explicit variables", {
   model <- lm_model(
     df = custom_df,
     response = "outcome",
-    predictors = c("feature1", "feature3")  # skip feature2
+    predictors = c("feature1", "feature3") # skip feature2
   )
 
   # EXPECTATION 1: Correct predictors used
@@ -327,7 +326,7 @@ test_that("lm_model errors when df has non-numeric columns", {
   mixed_df <- data.frame(
     y = rnorm(10),
     x1 = rnorm(10),
-    x2 = letters[1:10]  # character column
+    x2 = letters[1:10] # character column
   )
 
   # EXPECTATION: Error identifies non-numeric columns
@@ -481,7 +480,7 @@ test_that("lm_model handles data frames with many columns", {
   })
 
   # EXPECTATION: All columns used
-  expect_length(coef(model), n_cols)  # intercept + (n_cols - 1) predictors
+  expect_length(coef(model), n_cols) # intercept + (n_cols - 1) predictors
 })
 
 
@@ -509,7 +508,7 @@ test_that("lm_model handles column names with special characters", {
     response_var = rnorm(20),
     predictor.one = rnorm(20),
     `predictor two` = rnorm(20),
-    check.names = FALSE  # Allow spaces in names
+    check.names = FALSE # Allow spaces in names
   )
 
   # EXPECTATION: Function handles special names correctly
@@ -567,7 +566,6 @@ test_that("lm_model result works with predict()", {
   preds <- predict(model, newdata = new_data)
   expect_length(preds, 2)
 })
-
 
 # ============================================================================ #
 # BEST PRACTICES DEMONSTRATED IN THIS FILE:

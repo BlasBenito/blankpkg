@@ -22,7 +22,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 complete development infrastructure out of the box. No need to set up
 the boring stuff—it’s all here:
 
-- **28 development scripts** organized by workflow category
+- **30 development scripts** organized by workflow category
 - **Automatic pre-commit hooks** for code quality
 - **4-step CRAN release workflow**
 - **pkgdown website configuration** with example article
@@ -36,7 +36,7 @@ automates the tedious stuff so you can focus on writing code.
 
 ## Template Features
 
-### 1. Development Scripts (28 total)
+### 1. Development Scripts (30 total)
 
 All scripts are in the `dev/` folder with prefix-based naming for easy
 discovery:

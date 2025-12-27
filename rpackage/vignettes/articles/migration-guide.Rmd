@@ -1,0 +1,465 @@
+---
+title: "Migration Guide: From dev/ Scripts to rpkgdev Functions"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+# Overview
+
+If you're familiar with the blankpkg `dev/` scripts, this guide shows you how to use the equivalent rpkgdev functions. The functions provide the same functionality with enhanced feedback and programmatic access.
+
+**Key difference:** Scripts use `source()`, functions use direct calls with parameters.
+
+## Why Migrate?
+
+**Benefits of using rpkgdev functions:**
+- **Programmatic access** — Use in scripts, Rmarkdown, interactive sessions
+- **Enhanced feedback** — Rich console output with timing and progress
+- **Parameter flexibility** — Work on any package with `pkg` parameter
+- **Quiet mode** — Suppress output for scripting with `quiet = TRUE`
+- **Return values** — Access results programmatically
+- **Autocomplete discovery** — Type `dev_` + TAB to find functions
+
+**Scripts still work:**
+- The `dev/` scripts remain available in deployed templates
+- No need to migrate immediately
+- Both approaches can coexist
+- Choose based on your workflow preference
+
+## Complete Migration Map
+
+### Daily Development Scripts → Functions
+
+| Script | Function | Notes |
+|--------|----------|-------|
+| `source("dev/daily_load_all.R")` | `dev_load_all()` | Interactive loading |
+| `source("dev/daily_test.R")` | `dev_test()` | Quick test execution |
+| `source("dev/daily_document_and_check.R")` | `dev_document_and_check()` | Most common workflow |
+
+**Example migration:**
+
+```{r}
+# Before (script-based)
+source("dev/daily_document_and_check.R")
+
+# After (function-based)
+library(rpkgdev)
+dev_document_and_check()
+```
+
+### Testing Scripts → Functions
+
+| Script | Function | Notes |
+|--------|----------|-------|
+| `source("dev/test_run_all.R")` | `dev_test()` | Run all tests |
+| `source("dev/test_with_coverage.R")` | `dev_test_coverage()` | Coverage analysis |
+| `source("dev/test_spelling.R")` | `dev_spell_check()` | Spell check |
+
+**Example migration:**
+
+```{r}
+# Before
+source("dev/test_with_coverage.R")
+
+# After
+library(rpkgdev)
+dev_test_coverage(html_report = TRUE)
+```
+
+### Checking Scripts → Functions
+
+| Script | Function | Notes |
+|--------|----------|-------|
+| `source("dev/check_local.R")` | `dev_check_local()` | R CMD check |
+| `source("dev/check_good_practice.R")` | `dev_check_good_practice()` | Best practices |
+| `source("dev/check_win_devel.R")` | `dev_check_windows()` | Windows builder |
+| `source("dev/check_mac_release.R")` | `dev_check_macos()` | macOS builder |
+| `source("dev/check_rhub_multi_platform.R")` | `dev_check_rhub()` | Multi-platform |
+
+**Example migration:**
+
+```{r}
+# Before
+source("dev/check_local.R")
+
+# After
+library(rpkgdev)
+dev_check_local()
+
+# With CRAN standards
+dev_check_local(cran = TRUE)
+```
+
+### Build Scripts → Functions
+
+| Script | Function | Notes |
+|--------|----------|-------|
+| `source("dev/build_readme.R")` | `dev_build_readme()` | Render README |
+| `source("dev/build_vignettes.R")` | `dev_build_vignettes()` | Build vignettes |
+
+**Example migration:**
+
+```{r}
+# Before
+source("dev/build_readme.R")
+
+# After
+library(rpkgdev)
+dev_build_readme()
+```
+
+### Pkgdown Scripts → Functions
+
+| Script | Function | Notes |
+|--------|----------|-------|
+| `source("dev/pkgdown_build_site.R")` | `dev_pkgdown_build_site()` | Build website |
+| `source("dev/pkgdown_customize_site.R")` | `dev_pkgdown_customize_site()` | Customization guide |
+
+**Example migration:**
+
+```{r}
+# Before
+source("dev/pkgdown_build_site.R")
+
+# After
+library(rpkgdev)
+dev_pkgdown_build_site(preview = TRUE)
+```
+
+### Release Scripts → Functions
+
+| Script | Function | Notes |
+|--------|----------|-------|
+| `source("dev/release_01_prepare.R")` | `dev_release_prepare()` | Step 1/4 |
+| `source("dev/release_02_local_checks.R")` | `dev_release_check_local()` | Step 2/4 |
+| `source("dev/release_03_remote_checks.R")` | `dev_release_check_remote()` | Step 3/4 |
+| `source("dev/release_04_submit_to_cran.R")` | `dev_release_submit()` | Step 4/4 |
+
+**Example migration:**
+
+```{r}
+# Before
+source("dev/release_01_prepare.R")
+source("dev/release_02_local_checks.R")
+source("dev/release_03_remote_checks.R")
+source("dev/release_04_submit_to_cran.R")
+
+# After
+library(rpkgdev)
+dev_release_prepare()
+dev_release_check_local()
+dev_release_check_remote()
+dev_release_submit()
+```
+
+### Analysis Scripts → Functions
+
+| Script | Function | Notes |
+|--------|----------|-------|
+| `source("dev/analyze_code_coverage.R")` | `dev_test_coverage()` | Same as test coverage |
+| `source("dev/analyze_code_quality.R")` | `dev_analyze_quality()` | codetools analysis |
+| `source("dev/analyze_dependencies.R")` | `dev_analyze_dependencies()` | Dependency graph |
+| `source("dev/analyze_package_structure.R")` | `dev_analyze_structure()` | Structure metrics |
+| `source("dev/analyze_performance.R")` | `dev_analyze_performance()` | Performance templates |
+
+**Example migration:**
+
+```{r}
+# Before
+source("dev/analyze_package_structure.R")
+
+# After
+library(rpkgdev)
+metrics <- dev_analyze_structure()
+```
+
+### Setup & Installation Scripts
+
+**No direct function equivalents** — These remain as scripts:
+- `setup_new_package.R` → Use `deploy_template()` instead
+- `setup_rcpp_infrastructure.R` → Still use script (specialized setup)
+- `install_dev_dependencies.R` → Still use script (one-time setup)
+- `install_linter_jarl.R` → Still use script (external tool)
+
+```{r}
+# Instead of manual setup
+# source("dev/setup_new_package.R")
+
+# Use deploy function
+library(rpkgdev)
+deploy_template(
+  path = "~/projects/mynewpkg",
+  package_name = "mynewpkg"
+)
+```
+
+### Template Scripts
+
+**No function equivalents** — These are templates for you to customize:
+- `create_example_data.R` — Template for creating datasets
+- `create_example_function.R` — Template for creating functions
+
+These intentionally remain as scripts because they're meant to be modified for your specific needs.
+
+## Migration Patterns
+
+### Pattern 1: Simple Replacement
+
+Most scripts map directly to functions with same name:
+
+```{r}
+# Script pattern
+source("dev/{category}_{name}.R")
+
+# Function pattern
+library(rpkgdev)
+dev_{name}()
+```
+
+### Pattern 2: Adding Parameters
+
+Functions offer more flexibility than scripts:
+
+```{r}
+# Scripts have no parameters
+source("dev/daily_test.R")
+
+# Functions have flexible parameters
+library(rpkgdev)
+dev_test()                           # Default
+dev_test(filter = "utils")           # Specific tests
+dev_test(stop_on_failure = TRUE)     # Stop on fail
+dev_test(quiet = TRUE)               # Suppress output
+```
+
+### Pattern 3: Working on Different Packages
+
+Scripts always work on current directory. Functions can target any package:
+
+```{r}
+# Script approach (must cd to package first)
+# source("../otherpackage/dev/daily_test.R")  # Doesn't work!
+
+# Function approach (works from anywhere)
+library(rpkgdev)
+dev_test(pkg = "../otherpackage")
+```
+
+### Pattern 4: Programmatic Use
+
+Functions return values for programmatic use:
+
+```{r}
+# Scripts can't return values
+# source("dev/analyze_package_structure.R")
+# metrics <- ???  # Can't capture result
+
+# Functions return invisibly
+library(rpkgdev)
+metrics <- dev_analyze_structure(quiet = TRUE)
+
+# Use results
+if (metrics$exported > 10) {
+  message("Large package!")
+}
+```
+
+## Workflow Examples
+
+### Before (Script-Based Workflow)
+
+```{r}
+# Daily development
+source("dev/daily_load_all.R")
+# ... make changes ...
+source("dev/daily_test.R")
+source("dev/daily_document_and_check.R")
+
+# Pre-commit
+source("dev/test_spelling.R")
+source("dev/check_local.R")
+
+# Release
+source("dev/release_01_prepare.R")
+source("dev/release_02_local_checks.R")
+source("dev/release_03_remote_checks.R")
+source("dev/release_04_submit_to_cran.R")
+```
+
+### After (Function-Based Workflow)
+
+```{r}
+library(rpkgdev)
+
+# Daily development
+dev_load_all()
+# ... make changes ...
+dev_test()
+dev_document_and_check()
+
+# Pre-commit
+dev_spell_check()
+dev_check_local()
+
+# Release
+dev_release_prepare()
+dev_release_check_local()
+dev_release_check_remote()
+dev_release_submit()
+```
+
+**Benefits:**
+- One `library()` call instead of multiple `source()` calls
+- Shorter, cleaner code
+- Tab completion for function discovery
+- Consistent API across all functions
+
+## Gradual Migration Strategy
+
+You don't have to migrate all at once. Here's a gradual approach:
+
+### Week 1: Start with Daily Functions
+
+```{r}
+library(rpkgdev)
+
+# Replace these three first (you use them most)
+dev_load_all()
+dev_test()
+dev_document_and_check()
+
+# Keep using scripts for everything else
+```
+
+### Week 2: Add Checking Functions
+
+```{r}
+library(rpkgdev)
+
+# Daily workflow (from Week 1)
+dev_load_all()
+dev_test()
+dev_document_and_check()
+
+# Pre-commit checks (new this week)
+dev_spell_check()
+dev_check_local()
+
+# Still using scripts for release, analysis, etc.
+```
+
+### Week 3: Full Migration
+
+```{r}
+library(rpkgdev)
+
+# Everything in functions now
+dev_load_all()
+dev_test()
+dev_document_and_check()
+dev_spell_check()
+dev_check_local()
+dev_release_prepare()
+# ... etc
+```
+
+## Troubleshooting
+
+### "Package not loaded"
+
+If functions say rpkgdev isn't available:
+
+```{r}
+# Install first
+# remotes::install_github("blasbenito/rpkgdev")
+
+# Then load
+library(rpkgdev)
+```
+
+### "Function not found"
+
+Make sure you're using the right function name:
+
+```{r}
+# Wrong
+dev_daily_test()
+
+# Correct
+dev_test()
+```
+
+Use autocomplete: type `dev_` and press TAB to see all functions.
+
+### "DESCRIPTION file not found"
+
+Functions validate package path. Make sure you're in package root:
+
+```{r}
+# Check current directory
+getwd()
+
+# Work on different package
+dev_test(pkg = "../mypackage")
+```
+
+### "Package X is not installed"
+
+Some functions require optional packages:
+
+```{r}
+# Error message will say:
+# "dev_test_coverage requires package 'covr'"
+
+# Install it
+install.packages("covr")
+
+# Try again
+dev_test_coverage()
+```
+
+## Keeping Both Workflows
+
+Scripts and functions can coexist:
+
+```{r}
+# Use functions for common tasks
+library(rpkgdev)
+dev_test()
+dev_document_and_check()
+
+# Use scripts for specialized tasks
+source("dev/setup_rcpp_infrastructure.R")
+source("dev/install_linter_jarl.R")
+
+# Use templates for custom workflows
+source("dev/create_example_data.R")
+```
+
+Choose the tool that fits the job.
+
+## Summary
+
+**Quick migration checklist:**
+
+1. Install rpkgdev: `remotes::install_github("blasbenito/rpkgdev")`
+2. Add `library(rpkgdev)` to your workflow
+3. Replace `source("dev/daily_*.R")` with `dev_*()` functions first
+4. Gradually migrate other scripts as you use them
+5. Keep specialized setup scripts (Rcpp, jarl, etc.)
+6. Keep template scripts (example data, example functions)
+
+**Key takeaway:** Scripts → Functions is mostly find-and-replace with `dev_*()`. You get better feedback, more flexibility, and cleaner code.
+
+## Next Steps
+
+- Read the [main vignette](../rpkgdev.html) for complete function documentation
+- Try the [quick start guide](quick-start.html) for essential workflows
+- Explore function families with autocomplete: `dev_` + TAB
+- Visit https://github.com/blasbenito/rpkgdev for updates

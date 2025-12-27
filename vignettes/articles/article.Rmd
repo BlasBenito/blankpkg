@@ -46,9 +46,9 @@ data(dummy_df)
 
 # Fit a linear model using the template's example function
 model <- lm_model(
-  data = dummy_df,
-  response = "y",
-  predictors = c("x1", "x2", "x3")
+  df = dummy_df,
+  response = "a",
+  predictors = c("b", "c", "d")
 )
 
 # View model summary

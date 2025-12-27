@@ -1,0 +1,126 @@
+url: https://blasbenito.github.io/rpkgdev/
+template:
+  bootstrap: 5
+  bootswatch: flatly
+  bslib:
+    primary: "#0054AD"
+    border-radius: 0.5rem
+    btn-border-radius: 0.25rem
+
+home:
+  title: "rpkgdev: R Package Development Workflow Tools"
+  description: >
+    Comprehensive suite of development workflow functions for R package development.
+    Provides dev_*() functions for common tasks like testing, checking, building
+    documentation, and CRAN release preparation.
+
+navbar:
+  structure:
+    left: [intro, reference, articles, news]
+    right: [search, github]
+  components:
+    home: ~
+    intro:
+      text: Get Started
+      href: articles/quick-start.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    articles:
+      text: Articles
+      menu:
+      - text: Quick Start Guide
+        href: articles/quick-start.html
+      - text: Migration Guide
+        href: articles/migration-guide.html
+      - text: -------
+      - text: Main Vignette
+        href: articles/rpkgdev.html
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/blasbenito/rpkgdev
+      aria-label: GitHub
+
+reference:
+- title: "Quick Start - The Big Three"
+  desc: >
+    The three most frequently used functions for daily development. Learn these
+    first and you're 80% there.
+  contents:
+  - dev_load_all
+  - dev_test
+  - dev_document_and_check
+
+- title: "Template Deployment"
+  desc: >
+    Create new R packages with complete development infrastructure based on
+    the blankpkg template.
+  contents:
+  - deploy_template
+
+- title: "Checking Functions"
+  desc: >
+    Functions for validating package quality and CRAN compliance. Use these
+    before commits and releases.
+  contents:
+  - dev_check_local
+  - dev_check_good_practice
+  - dev_check_windows
+  - dev_check_macos
+  - dev_check_rhub
+
+- title: "Testing Functions"
+  desc: >
+    Extended testing capabilities including coverage analysis and spell checking.
+  contents:
+  - dev_test_coverage
+  - dev_spell_check
+
+- title: "Build Functions"
+  desc: >
+    Functions for building package documentation components.
+  contents:
+  - dev_build_readme
+  - dev_build_vignettes
+
+- title: "Pkgdown Functions"
+  desc: >
+    Create and customize package websites with pkgdown.
+  contents:
+  - dev_pkgdown_build_site
+  - dev_pkgdown_customize_site
+
+- title: "Release Workflow"
+  desc: >
+    Four-step sequential workflow for CRAN submission. **Must follow order:
+    Step 1 → Step 2 → Step 3 → Step 4**
+  contents:
+  - dev_release_prepare
+  - dev_release_check_local
+  - dev_release_check_remote
+  - dev_release_submit
+
+- title: "Analysis Functions"
+  desc: >
+    Functions for analyzing package quality, structure, dependencies, and
+    performance characteristics.
+  contents:
+  - dev_analyze_quality
+  - dev_analyze_dependencies
+  - dev_analyze_structure
+  - dev_analyze_performance
+
+footer:
+  structure:
+    left: developed_by
+    right: built_with
+  components:
+    developed_by: |
+      rpkgdev is developed by [Blas Benito](https://github.com/blasbenito).
+    built_with: |
+      Built with [pkgdown](https://pkgdown.r-lib.org/) and ❤️.
+
+development:
+  mode: auto
+  version_label: default
+  version_tooltip: "Version"

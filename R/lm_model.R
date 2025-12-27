@@ -1,4 +1,3 @@
-
 #' Fit Linear Model to Dataset
 #'
 #' Fits a linear regression model with flexible specification of response and
@@ -77,14 +76,16 @@
 lm_model <- function(df = NULL, response = NULL, predictors = NULL) {
   # Use built-in dataset if none provided
   if (is.null(df)) {
-    df <- dummy_df
+    # Load the built-in dataset (avoids R CMD check NOTE)
+    df <- get("dummy_df", envir = asNamespace("blankpkg"))
   }
 
   # Input validation: df must be a data frame
   if (!is.data.frame(df)) {
     stop(
       "Argument `df` must be a data frame or NULL. ",
-      "Received object of class: ", class(df)[1],
+      "Received object of class: ",
+      class(df)[1],
       call. = FALSE
     )
   }
@@ -96,15 +97,20 @@ lm_model <- function(df = NULL, response = NULL, predictors = NULL) {
     if (!is.character(response) || length(response) != 1) {
       stop(
         "Argument `response` must be a single character string or NULL. ",
-        "Received object of class: ", class(response)[1],
-        " with length: ", length(response),
+        "Received object of class: ",
+        class(response)[1],
+        " with length: ",
+        length(response),
         call. = FALSE
       )
     }
     if (!response %in% names(df)) {
       stop(
-        "Response variable '", response, "' not found in data frame. ",
-        "Available columns: ", paste(names(df), collapse = ", "),
+        "Response variable '",
+        response,
+        "' not found in data frame. ",
+        "Available columns: ",
+        paste(names(df), collapse = ", "),
         call. = FALSE
       )
     }
@@ -117,7 +123,8 @@ lm_model <- function(df = NULL, response = NULL, predictors = NULL) {
     if (!is.character(predictors)) {
       stop(
         "Argument `predictors` must be a character vector or NULL. ",
-        "Received object of class: ", class(predictors)[1],
+        "Received object of class: ",
+        class(predictors)[1],
         call. = FALSE
       )
     }
@@ -126,7 +133,8 @@ lm_model <- function(df = NULL, response = NULL, predictors = NULL) {
       stop(
         "Predictor variable(s) not found in data frame: ",
         paste(missing_predictors, collapse = ", "),
-        "\nAvailable columns: ", paste(names(df), collapse = ", "),
+        "\nAvailable columns: ",
+        paste(names(df), collapse = ", "),
         call. = FALSE
       )
     }
@@ -136,7 +144,9 @@ lm_model <- function(df = NULL, response = NULL, predictors = NULL) {
   if (length(predictors) == 0) {
     stop(
       "At least one predictor variable must be specified. ",
-      "Data frame has ", ncol(df), " column(s), ",
+      "Data frame has ",
+      ncol(df),
+      " column(s), ",
       "but response variable uses one of them.",
       call. = FALSE
     )

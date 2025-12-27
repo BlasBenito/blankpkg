@@ -1,0 +1,199 @@
+---
+title: "Quick Start Guide"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+# Get Started in 5 Minutes
+
+This guide gets you productive with rpkgdev immediately. For complete documentation, see the main vignette.
+
+## Installation
+
+```{r}
+# Install from GitHub
+# remotes::install_github("blasbenito/rpkgdev")
+
+# Load the package
+library(rpkgdev)
+```
+
+## The Big Three
+
+Learn these three functions and you're 80% there:
+
+### 1. dev_load_all()
+
+Load your package for interactive testing:
+
+```{r}
+dev_load_all()
+```
+
+**Use this:** After changing code, before testing functions in console.
+
+### 2. dev_test()
+
+Run your tests:
+
+```{r}
+dev_test()
+```
+
+**Use this:** After modifying functions, to verify nothing broke.
+
+### 3. dev_document_and_check()
+
+Update docs and run R CMD check:
+
+```{r}
+dev_document_and_check()
+```
+
+**Use this:** Before every commit. This is your quality gate.
+
+## Your Daily Workflow
+
+```{r}
+# 1. Load package
+dev_load_all()
+
+# 2. Make code changes...
+
+# 3. Test interactively in console...
+
+# 4. Run automated tests
+dev_test()
+
+# 5. Before committing
+dev_document_and_check()
+```
+
+That's it. Repeat this cycle throughout your day.
+
+## Create a New Package
+
+Want to start a new package with full infrastructure?
+
+```{r}
+deploy_template(
+  path = "~/projects/mynewpkg",
+  package_name = "mynewpkg"
+)
+```
+
+This creates:
+- Complete R package structure
+- 30 development scripts in `dev/`
+- Pre-commit hooks
+- pkgdown website setup
+- Test infrastructure
+- Claude Code agents (optional)
+- GitHub Actions CI/CD
+
+The package opens automatically in RStudio, ready to use.
+
+## Release to CRAN
+
+Four functions, run in order:
+
+```{r}
+# Step 1: Prepare (update version, NEWS.md, spell check)
+dev_release_prepare()
+
+# Step 2: Local checks (must pass 0/0/0)
+dev_release_check_local()
+
+# Step 3: Remote checks (Windows, macOS, multi-platform)
+dev_release_check_remote()
+
+# Step 4: Submit to CRAN
+dev_release_submit()
+```
+
+Wait for clean results from Step 3 before running Step 4.
+
+## Beyond the Basics
+
+### Check Spelling
+
+Before release:
+
+```{r}
+dev_spell_check()
+```
+
+Add technical terms to `inst/WORDLIST`.
+
+### Test Coverage
+
+See what's tested:
+
+```{r}
+dev_test_coverage(html_report = TRUE)
+```
+
+Opens interactive report highlighting untested code in red.
+
+### Build Website
+
+Create pkgdown site:
+
+```{r}
+dev_pkgdown_build_site(preview = TRUE)
+```
+
+### Analyze Package
+
+Get structure metrics:
+
+```{r}
+dev_analyze_structure()
+```
+
+Shows function counts, documentation coverage, test files.
+
+## Common Parameters
+
+All functions share consistent parameters:
+
+- `pkg = "."` — Work on different package: `dev_test(pkg = "../otherpackage")`
+- `quiet = FALSE` — Suppress output: `dev_test(quiet = TRUE)`
+
+## Function Discovery
+
+Type prefix + TAB to discover related functions:
+
+- `dev_` + TAB → All development functions
+- `dev_check_` + TAB → All checking functions
+- `dev_release_` + TAB → Release workflow (4 steps)
+- `dev_analyze_` + TAB → Analysis functions
+
+## Getting Help
+
+```{r}
+# See all functions
+help(package = "rpkgdev")
+
+# Function help
+?dev_test
+?deploy_template
+
+# Read main vignette
+vignette("rpkgdev")
+```
+
+## Next Steps
+
+1. **Try the Big Three** on your current package
+2. **Read dev/README.md** in deployed template for detailed script documentation
+3. **Explore function families** using autocomplete
+4. **Visit the website:** https://github.com/blasbenito/rpkgdev
+
+That's all you need to get started. The rest you'll pick up as you go.

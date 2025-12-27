@@ -1,0 +1,621 @@
+---
+title: "Getting Started with rpkgdev"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with rpkgdev}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+# Introduction
+
+**rpkgdev** provides a comprehensive suite of development workflow functions for R package development. It streamlines common tasks like testing, checking, building documentation, and CRAN release preparation through a consistent family of `dev_*()` functions.
+
+The package also includes `deploy_template()` to scaffold new packages with complete development infrastructure based on the [blankpkg](https://github.com/blasbenito/blankpkg) template.
+
+## Installation
+
+```{r}
+# Install from GitHub
+# remotes::install_github("blasbenito/rpkgdev")
+
+# Or install locally during development
+devtools::install()
+```
+
+## Quick Start
+
+The most commonly used functions for daily development:
+
+```{r}
+library(rpkgdev)
+
+# Load package for interactive development
+dev_load_all()
+
+# Run tests quickly
+dev_test()
+
+# Update documentation and run R CMD check
+dev_document_and_check()
+```
+
+## Package Philosophy
+
+rpkgdev is built around several core principles:
+
+1. **Consistent API** — All functions use `pkg = "."` and `quiet = FALSE` parameters
+2. **Function families** — Related functions grouped by prefix for autocomplete discovery
+3. **Enhanced feedback** — Rich console output using cli package with timing information
+4. **Prerequisite checking** — Validates required packages and provides helpful installation instructions
+5. **Invisible returns** — All functions return invisibly for programmatic use
+
+# Function Families
+
+## Daily Development Functions
+
+The three most frequently used functions for everyday package development:
+
+### dev_load_all()
+
+Load all package functions into current R session for interactive development. Equivalent to `devtools::load_all()` with enhanced feedback.
+
+```{r}
+# Load package
+dev_load_all()
+
+# Load package quietly
+dev_load_all(quiet = TRUE)
+
+# Load with reset (unload first)
+dev_load_all(reset = TRUE)
+```
+
+**When to use:** Before testing functions interactively, after modifying code.
+
+### dev_test()
+
+Run all package tests with detailed output. Shows which tests pass/fail with timing information.
+
+```{r}
+# Run all tests
+dev_test()
+
+# Run specific test file
+dev_test(filter = "utils")
+
+# Stop on first failure
+dev_test(stop_on_failure = TRUE)
+```
+
+**When to use:** After modifying functions, before committing changes.
+
+### dev_document_and_check()
+
+The most common workflow: update roxygen2 documentation and run R CMD check. This is what you run before committing changes.
+
+```{r}
+# Document and check
+dev_document_and_check()
+
+# Skip documentation update
+dev_document_and_check(document = FALSE)
+
+# Use CRAN standards
+dev_document_and_check(cran = TRUE)
+```
+
+**When to use:** Before every commit, before pushing to GitHub.
+
+## Checking Functions
+
+Functions for validating package quality and CRAN compliance:
+
+### dev_check_local()
+
+Run R CMD check locally. Must pass with 0 errors, 0 warnings, 0 notes before release.
+
+```{r}
+# Standard check
+dev_check_local()
+
+# CRAN-level check
+dev_check_local(cran = TRUE)
+
+# Check specific package
+dev_check_local(pkg = "../mypackage")
+```
+
+**When to use:** Before committing, before release preparation.
+
+### dev_check_good_practice()
+
+Analyze package for R best practices using the goodpractice package. Provides recommendations (not requirements).
+
+```{r}
+# Run good practice check
+dev_check_good_practice()
+
+# Run quietly
+dev_check_good_practice(quiet = TRUE)
+```
+
+**When to use:** During development to improve code quality.
+
+### Remote Platform Checks
+
+Submit package to remote builders for cross-platform validation:
+
+```{r}
+# Windows R-devel check
+dev_check_windows()
+
+# macOS R-release check
+dev_check_macos()
+
+# Comprehensive multi-platform checks via R-Hub
+dev_check_rhub()
+```
+
+**When to use:** Before CRAN submission (Step 3 of release workflow).
+
+## Testing Functions
+
+Extended testing capabilities beyond basic test execution:
+
+### dev_test_coverage()
+
+Calculate test coverage and optionally generate interactive HTML report showing which lines are tested.
+
+```{r}
+# Show coverage in console
+dev_test_coverage()
+
+# Generate HTML report
+dev_test_coverage(html_report = TRUE)
+
+# Get coverage object
+cov <- dev_test_coverage(quiet = TRUE)
+```
+
+**When to use:** To identify untested code, before release.
+
+### dev_spell_check()
+
+Check all documentation for spelling errors. Add valid technical terms to `inst/WORDLIST`.
+
+```{r}
+# Check spelling
+dev_spell_check()
+
+# Check specific package
+dev_spell_check(pkg = "../mypackage")
+```
+
+**When to use:** Before release (Step 1 of release workflow).
+
+## Build Functions
+
+Functions for building package documentation:
+
+### dev_build_readme()
+
+Render README.Rmd to README.md, executing all code chunks and updating output.
+
+```{r}
+# Build README
+dev_build_readme()
+
+# Build quietly
+dev_build_readme(quiet = TRUE)
+```
+
+**When to use:** After modifying README.Rmd, before pushing to GitHub.
+
+### dev_build_vignettes()
+
+Build all package vignettes to inst/doc/, executing R code in vignettes.
+
+```{r}
+# Build vignettes
+dev_build_vignettes()
+
+# Clean build
+dev_build_vignettes(clean = TRUE)
+```
+
+**When to use:** After modifying vignettes, before building website.
+
+## Pkgdown Functions
+
+Functions for creating and customizing package websites:
+
+### dev_pkgdown_build_site()
+
+Build complete package website to docs/ directory. Creates documentation website from function help, vignettes, and README.
+
+```{r}
+# Build site
+dev_pkgdown_build_site()
+
+# Build and preview
+dev_pkgdown_build_site(preview = TRUE)
+
+# Rebuild everything
+dev_pkgdown_build_site(new_process = TRUE)
+```
+
+**When to use:** After significant documentation changes, before deploying to GitHub Pages.
+
+### dev_pkgdown_customize_site()
+
+Interactive guide with templates for customizing `_pkgdown.yml`. Shows examples for themes, navigation, reference organization.
+
+```{r}
+# Show customization guide
+dev_pkgdown_customize_site()
+```
+
+**When to use:** When setting up package website for first time.
+
+## Release Functions
+
+Four-step sequential workflow for CRAN submission. **Must follow order: 01 → 02 → 03 → 04**
+
+### dev_release_prepare()
+
+**Step 1 of 4:** Prepare package for release with checklist:
+- Update version number in DESCRIPTION
+- Update NEWS.md with changes
+- Run spell check
+- Review documentation
+
+```{r}
+# Show preparation checklist
+dev_release_prepare()
+```
+
+### dev_release_check_local()
+
+**Step 2 of 4:** Run comprehensive local checks:
+- R CMD check with CRAN standards
+- Good practice analysis
+
+```{r}
+# Run local checks
+dev_release_check_local()
+```
+
+### dev_release_check_remote()
+
+**Step 3 of 4:** Submit to remote builders:
+- Windows R-devel
+- macOS R-release
+- Multi-platform R-Hub checks
+
+```{r}
+# Submit to remote builders
+dev_release_check_remote()
+```
+
+### dev_release_submit()
+
+**Step 4 of 4:** Final CRAN submission with post-submission checklist.
+
+```{r}
+# Submit to CRAN
+dev_release_submit()
+```
+
+**Workflow:** Always complete steps 1-3 before step 4. Wait for clean results from remote checks.
+
+## Analysis Functions
+
+Functions for analyzing package quality and structure:
+
+### dev_analyze_quality()
+
+Run static code analysis with codetools to detect potential issues like undefined variables and suspicious constructs.
+
+```{r}
+# Analyze code quality
+dev_analyze_quality()
+```
+
+**When to use:** During development to catch code issues early.
+
+### dev_analyze_dependencies()
+
+Create interactive network visualization of package dependencies using pkgnet. Saves HTML report.
+
+```{r}
+# Analyze dependencies
+dev_analyze_dependencies()
+
+# Analyze without opening report
+report <- dev_analyze_dependencies(open_report = FALSE)
+```
+
+**When to use:** To understand dependency structure, identify potential issues.
+
+### dev_analyze_structure()
+
+Get detailed metrics about package structure:
+- Function counts (total, exported, internal)
+- Documentation coverage
+- Test file counts
+- Vignette counts
+
+```{r}
+# Show structure analysis
+dev_analyze_structure()
+
+# Get metrics object
+metrics <- dev_analyze_structure(quiet = TRUE)
+```
+
+**When to use:** To assess package complexity and documentation completeness.
+
+### dev_analyze_performance()
+
+Provides guidance and templates for benchmarking package performance using microbenchmark and profvis.
+
+```{r}
+# Show performance analysis guide
+dev_analyze_performance()
+```
+
+**When to use:** When optimizing package performance.
+
+# Template Deployment
+
+## deploy_template()
+
+Create new R package with complete development infrastructure based on blankpkg template.
+
+```{r}
+# Deploy complete template
+deploy_template(
+  path = "~/projects/mynewpkg",
+  package_name = "mynewpkg"
+)
+
+# Deploy without Claude components
+deploy_template(
+  path = "~/projects/mynewpkg",
+  package_name = "mynewpkg",
+  claude_components = FALSE
+)
+
+# Deploy without dev scripts
+deploy_template(
+  path = "~/projects/mynewpkg",
+  package_name = "mynewpkg",
+  dev_scripts = FALSE
+)
+
+# Deploy without initializing git
+deploy_template(
+  path = "~/projects/mynewpkg",
+  package_name = "mynewpkg",
+  git_init = FALSE
+)
+```
+
+### What Gets Deployed
+
+**Core Infrastructure:**
+- `.Rbuildignore`, `.gitignore`, `.Rprofile`
+- `_pkgdown.yml` for website configuration
+- Pre-commit hook for automated quality checks
+- `air.toml` for code formatting
+
+**Claude Code Components** (if `claude_components = TRUE`):
+- `.claude/settings.local.json` - Claude Code configuration
+- `.claude/agents/` - Two specialized agents:
+  - `roxygen-doc-reviewer` - Reviews documentation quality
+  - `cran-submission-expert` - Assists with CRAN preparation
+- `CLAUDE.md` - Instructions for Claude Code
+
+**Development Scripts** (if `dev_scripts = TRUE`):
+- 30 development scripts in `dev/` directory
+- Organized by prefix: `setup_*`, `daily_*`, `test_*`, `check_*`, `build_*`, `release_*`, `analyze_*`
+- `dev/README.md` with comprehensive usage guide
+
+**Test Infrastructure:**
+- `tests/testthat.R` - Test runner
+- `tests/testthat/` - Test directory
+
+**GitHub Actions:**
+- `.github/workflows/R-CMD-check.yaml` - CI/CD configuration
+
+### Customization Options
+
+The deployed template is fully customized:
+- DESCRIPTION file updated with your package name and author
+- RStudio project file created
+- Git repository initialized (if `git_init = TRUE`)
+- Project opened in RStudio (if `open_project = TRUE` and interactive)
+
+# Common Workflows
+
+## Daily Development
+
+Typical workflow when developing package features:
+
+```{r}
+# 1. Load package for interactive testing
+dev_load_all()
+
+# 2. Make changes to functions...
+
+# 3. Test changes
+dev_test()
+
+# 4. Before committing
+dev_document_and_check()
+```
+
+## Pre-Commit Checklist
+
+Before committing changes to git:
+
+```{r}
+# 1. Update documentation and check
+dev_document_and_check()
+
+# 2. Run tests
+dev_test()
+
+# 3. Check spelling
+dev_spell_check()
+
+# 4. If all pass, commit!
+```
+
+## Release Preparation
+
+Complete workflow for CRAN submission:
+
+```{r}
+# Step 1: Prepare
+dev_release_prepare()
+# Follow checklist: update version, NEWS.md, spell check
+
+# Step 2: Local checks
+dev_release_check_local()
+# Must pass with 0/0/0 before proceeding
+
+# Step 3: Remote checks
+dev_release_check_remote()
+# Wait for email results (15-60 minutes)
+
+# Step 4: Submit to CRAN
+dev_release_submit()
+# Follow post-submission checklist
+```
+
+## Documentation Updates
+
+When updating package documentation:
+
+```{r}
+# 1. Update README
+dev_build_readme()
+
+# 2. Update vignettes
+dev_build_vignettes()
+
+# 3. Build website
+dev_pkgdown_build_site(preview = TRUE)
+
+# 4. Check and commit
+dev_document_and_check()
+```
+
+## Quality Analysis
+
+Periodic package health check:
+
+```{r}
+# Check code quality
+dev_analyze_quality()
+
+# Review structure
+dev_analyze_structure()
+
+# Analyze dependencies
+dev_analyze_dependencies()
+
+# Calculate test coverage
+dev_test_coverage(html_report = TRUE)
+```
+
+# Relationship with blankpkg Template
+
+rpkgdev and blankpkg work together:
+
+- **blankpkg** is the template repository that can be forked directly from GitHub
+- **rpkgdev** is the R package that programmatically deploys the blankpkg template
+
+**When to fork blankpkg directly:**
+- You want to customize the template before using it
+- You prefer GitHub's fork workflow
+- You want to track template updates via git
+
+**When to use deploy_template():**
+- You want quick package creation from R
+- You want programmatic deployment (e.g., in scripts)
+- You want customization options (skip Claude components, skip dev scripts)
+- You want automated setup (git init, RStudio project)
+
+Both approaches result in the same development infrastructure. Choose based on your preferred workflow.
+
+# Tips and Best Practices
+
+## Function Discovery
+
+All functions use prefix-based naming for autocomplete:
+- Type `dev_` + TAB to see all development functions
+- Type `dev_check_` + TAB to see all checking functions
+- Type `dev_release_` + TAB to see release workflow
+
+## Quiet Mode
+
+All functions support `quiet = TRUE` for programmatic use:
+
+```{r}
+# In scripts
+dev_test(quiet = TRUE)
+dev_document_and_check(quiet = TRUE)
+
+# In interactive sessions (default)
+dev_test()  # Shows detailed output
+```
+
+## Package Parameter
+
+All functions accept `pkg` parameter to work on other packages:
+
+```{r}
+# Work on different package
+dev_test(pkg = "../otherpackage")
+dev_document_and_check(pkg = "~/projects/mypackage")
+```
+
+## Programmatic Use
+
+All functions return invisibly for use in scripts:
+
+```{r}
+# Get results without printing
+metrics <- dev_analyze_structure(quiet = TRUE)
+coverage <- dev_test_coverage(quiet = TRUE)
+
+# Check conditions
+if (metrics$exported > 10) {
+  message("Large package!")
+}
+```
+
+# Next Steps
+
+1. **Install rpkgdev** and explore functions with `help(package = "rpkgdev")`
+2. **Deploy a new package** with `deploy_template()` to see full infrastructure
+3. **Read development scripts** in `dev/README.md` for detailed workflow guidance
+4. **Visit package website** at https://github.com/blasbenito/rpkgdev
+
+# Related Resources
+
+- **blankpkg template:** https://github.com/blasbenito/blankpkg
+- **R Packages book:** https://r-pkgs.org
+- **devtools documentation:** https://devtools.r-lib.org
+- **Claude Code:** https://claude.com/code

@@ -1,0 +1,11 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^inst/templates/.*\.Rbuildignore$
+^inst/templates/.*\.gitignore$
+^inst/templates/.*\.Rprofile$

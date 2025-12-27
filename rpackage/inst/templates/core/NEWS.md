@@ -1,4 +1,4 @@
-# blankpkg 0.0.0.9000
+# blankpkg (development version)
 
 * Initial template release - comprehensive R package development infrastructure
 * 30 development scripts organized by workflow
