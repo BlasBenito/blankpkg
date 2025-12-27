@@ -119,7 +119,9 @@ dev_analyze_dependencies <- function(
 
   # Open report
   if (open_report && fs::file_exists(report_path)) {
-    if (!quiet) cli::cli_alert_info("Opening dependency report...")
+    if (!quiet) {
+      cli::cli_alert_info("Opening dependency report...")
+    }
     utils::browseURL(report_path)
   }
 
@@ -165,7 +167,8 @@ dev_analyze_structure <- function(pkg = ".", quiet = FALSE) {
     # Count function definitions
     n_functions <- n_functions + sum(grepl("<-\\s*function\\s*\\(", content))
     # Count exports
-    exported_functions <- exported_functions + sum(grepl("^#'\\s*@export", content))
+    exported_functions <- exported_functions +
+      sum(grepl("^#'\\s*@export", content))
   }
 
   # Count documentation files
@@ -259,7 +262,8 @@ dev_analyze_performance <- function(pkg = ".", quiet = FALSE) {
 
     cli::cli_h2("Benchmarking with microbenchmark")
     cli::cli_text("Compare execution times of different implementations:")
-    cli::cli_code('
+    cli::cli_code(
+      '
 library(microbenchmark)
 library(yourpkg)
 
@@ -271,11 +275,13 @@ result <- microbenchmark(
 
 print(result)
 autoplot(result)
-')
+'
+    )
 
     cli::cli_h2("Profiling with profvis")
     cli::cli_text("Identify performance bottlenecks:")
-    cli::cli_code('
+    cli::cli_code(
+      '
 library(profvis)
 library(yourpkg)
 
@@ -283,7 +289,8 @@ profvis({
   # Your code to profile
   result <- your_function(large_dataset)
 })
-')
+'
+    )
 
     cli::cli_h2("Tips for Performance Analysis")
     cli::cli_ul(c(

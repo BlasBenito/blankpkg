@@ -67,13 +67,14 @@ deploy_template <- function(
   open_project = interactive(),
   quiet = FALSE
 ) {
-
   # Check prerequisites
   check_prerequisite("fs", "deploy_template")
   check_prerequisite("usethis", "deploy_template")
 
   # Step 1: Validate and normalize path
-  if (!quiet) cli::cli_h1("Deploying blankpkg Template")
+  if (!quiet) {
+    cli::cli_h1("Deploying blankpkg Template")
+  }
 
   path <- fs::path_expand(path)
   path <- fs::path_abs(path)
@@ -109,7 +110,9 @@ deploy_template <- function(
   }
 
   # Step 4: Create directory structure
-  if (!quiet) cli::cli_h2("Creating Directory Structure")
+  if (!quiet) {
+    cli::cli_h2("Creating Directory Structure")
+  }
 
   fs::dir_create(path, recurse = TRUE)
   fs::dir_create(fs::path(path, "R"))
@@ -122,11 +125,15 @@ deploy_template <- function(
   files_created <- character()
 
   # Step 5: Copy core template files
-  if (!quiet) cli::cli_h2("Copying Template Files")
+  if (!quiet) {
+    cli::cli_h2("Copying Template Files")
+  }
 
   template_dir <- system.file("templates", package = "rpkgdev")
   if (template_dir == "") {
-    cli::cli_abort("Template files not found. Package may not be installed correctly.")
+    cli::cli_abort(
+      "Template files not found. Package may not be installed correctly."
+    )
   }
 
   # Copy core files
@@ -208,7 +215,9 @@ deploy_template <- function(
   }
 
   # Step 6: Create DESCRIPTION file
-  if (!quiet) cli::cli_h2("Creating Package Metadata")
+  if (!quiet) {
+    cli::cli_h2("Creating Package Metadata")
+  }
 
   desc_path <- fs::path(path, "DESCRIPTION")
   usethis::create_package(
@@ -225,7 +234,9 @@ deploy_template <- function(
     open = FALSE
   )
 
-  if (!quiet) cli::cli_alert_success("Created DESCRIPTION")
+  if (!quiet) {
+    cli::cli_alert_success("Created DESCRIPTION")
+  }
 
   # Step 7: Create .Rproj file (optional)
   rproj_path <- NULL
@@ -271,14 +282,18 @@ PackageRoxygenize: rd,collate,namespace
       git_initialized <- TRUE
       if (!quiet) cli::cli_alert_success("Initialized git repository")
     } else {
-      if (!quiet) cli::cli_alert_warning("git not found, skipping initialization")
+      if (!quiet) {
+        cli::cli_alert_warning("git not found, skipping initialization")
+      }
     }
   }
 
   # Step 9: Final summary
   if (!quiet) {
     cli::cli_h1("Deployment Complete")
-    cli::cli_alert_success("Package {.pkg {package_name}} created at {.path {path}}")
+    cli::cli_alert_success(
+      "Package {.pkg {package_name}} created at {.path {path}}"
+    )
     cli::cli_text("")
     cli::cli_text("Next steps:")
     cli::cli_ol(c(

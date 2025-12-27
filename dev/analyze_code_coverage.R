@@ -42,9 +42,13 @@ if (!requireNamespace("covr", quietly = TRUE)) {
 }
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("CODE COVERAGE ANALYSIS\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 # Calculate coverage
 cat("Calculating test coverage...\n")
@@ -58,9 +62,13 @@ print(coverage)
 # Calculate total coverage percentage
 total_coverage <- covr::percent_coverage(coverage)
 
-cat("\n==============================================================================\n")
+cat(
+  "\n==============================================================================\n"
+)
 cat(sprintf("OVERALL COVERAGE: %.1f%%\n", total_coverage))
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 # Offer interactive report
 cat("To view detailed interactive HTML report, run:\n")

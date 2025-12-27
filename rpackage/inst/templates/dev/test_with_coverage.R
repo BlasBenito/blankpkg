@@ -46,9 +46,13 @@ if (!requireNamespace("covr", quietly = TRUE)) {
 }
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("TEST WITH COVERAGE ANALYSIS\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("Running tests and calculating coverage...\n")
 cat("(This may take a moment as all tests are executed twice)\n\n")
@@ -64,9 +68,13 @@ print(coverage)
 # Calculate total coverage
 total_coverage <- covr::percent_coverage(coverage)
 
-cat("\n==============================================================================\n")
+cat(
+  "\n==============================================================================\n"
+)
 cat(sprintf("OVERALL COVERAGE: %.1f%%\n", total_coverage))
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 
 # Generate interactive report
 cat("\nGenerating interactive coverage report...\n")
@@ -77,7 +85,9 @@ total_time <- difftime(Sys.time(), start_time, units = "secs")
 cat(sprintf("\nTotal time: %.1f seconds\n", total_time))
 cat("\nInteractive coverage report should open in your browser.\n")
 cat("Red lines indicate untested code.\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 
 # Return coverage invisibly
 invisible(coverage)

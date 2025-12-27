@@ -48,13 +48,19 @@ if (!requireNamespace("devtools", quietly = TRUE)) {
 cat("\014")
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("DAILY WORKFLOW: DOCUMENT AND CHECK\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 # Step 1: Document
 cat("STEP 1/2: Documenting package...\n")
-cat("------------------------------------------------------------------------------\n")
+cat(
+  "------------------------------------------------------------------------------\n"
+)
 start_time <- Sys.time()
 
 devtools::document()
@@ -64,35 +70,51 @@ cat(sprintf("\nDocumentation complete (%.1f seconds)\n\n", doc_time))
 
 # Step 2: Check
 cat("STEP 2/2: Running R CMD check...\n")
-cat("------------------------------------------------------------------------------\n")
+cat(
+  "------------------------------------------------------------------------------\n"
+)
 check_start <- Sys.time()
 
 result <- devtools::check(
-  document = FALSE,  # Already documented above
+  document = FALSE, # Already documented above
   quiet = FALSE
 )
 
 check_time <- difftime(Sys.time(), check_start, units = "secs")
 
 # Print summary
-cat("\n==============================================================================\n")
+cat(
+  "\n==============================================================================\n"
+)
 cat("CHECK COMPLETE\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat(sprintf("Documentation time: %.1f seconds\n", doc_time))
 cat(sprintf("Check time:         %.1f seconds\n", check_time))
-cat(sprintf("Total time:         %.1f seconds\n",
-            difftime(Sys.time(), start_time, units = "secs")))
+cat(sprintf(
+  "Total time:         %.1f seconds\n",
+  difftime(Sys.time(), start_time, units = "secs")
+))
 cat("\nResults:\n")
-cat(sprintf("  Errors:   %d %s\n",
-            length(result$errors),
-            ifelse(length(result$errors) == 0, "\u2714", "\u2716")))
-cat(sprintf("  Warnings: %d %s\n",
-            length(result$warnings),
-            ifelse(length(result$warnings) == 0, "\u2714", "\u2716")))
-cat(sprintf("  Notes:    %d %s\n",
-            length(result$notes),
-            ifelse(length(result$notes) == 0, "\u2714", "\u2716")))
-cat("==============================================================================\n")
+cat(sprintf(
+  "  Errors:   %d %s\n",
+  length(result$errors),
+  ifelse(length(result$errors) == 0, "\u2714", "\u2716")
+))
+cat(sprintf(
+  "  Warnings: %d %s\n",
+  length(result$warnings),
+  ifelse(length(result$warnings) == 0, "\u2714", "\u2716")
+))
+cat(sprintf(
+  "  Notes:    %d %s\n",
+  length(result$notes),
+  ifelse(length(result$notes) == 0, "\u2714", "\u2716")
+))
+cat(
+  "==============================================================================\n"
+)
 
 # Return invisibly for programmatic use
 invisible(result)

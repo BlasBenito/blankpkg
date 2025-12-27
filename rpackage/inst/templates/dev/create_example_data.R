@@ -59,9 +59,17 @@ j <- rnorm(n, mean = 25, sd = 4)
 
 # Generate response variable as linear combination of predictors + noise
 # This creates a realistic dataset for demonstrating linear regression
-a <- 2 + 0.5 * b + 1.2 * c - 0.3 * d + 0.8 * e +
-     0.4 * f - 0.6 * g + 1.1 * h + 0.2 * i - 0.5 * j +
-     rnorm(n, mean = 0, sd = 2)
+a <- 2 +
+  0.5 * b +
+  1.2 * c -
+  0.3 * d +
+  0.8 * e +
+  0.4 * f -
+  0.6 * g +
+  1.1 * h +
+  0.2 * i -
+  0.5 * j +
+  rnorm(n, mean = 0, sd = 2)
 
 # ============================================================================ #
 # STEP 2: Create and format the data structure
@@ -70,8 +78,8 @@ a <- 2 + 0.5 * b + 1.2 * c - 0.3 * d + 0.8 * e +
 # Create dataframe with response as first column
 # Column names should be meaningful and follow your package's naming conventions
 dummy_df <- data.frame(
-  a = a,  # Response variable
-  b = b,  # Predictor variables
+  a = a, # Response variable
+  b = b, # Predictor variables
   c = c,
   d = d,
   e = e,

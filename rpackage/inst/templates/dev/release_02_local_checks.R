@@ -53,9 +53,13 @@ if (!requireNamespace("goodpractice", quietly = TRUE)) {
 }
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("LOCAL VALIDATION CHECKS (STEP 2/4)\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("Running comprehensive local checks...\n")
 cat("This may take 2-5 minutes.\n\n")
@@ -64,7 +68,9 @@ overall_start <- Sys.time()
 
 # Check 1: R CMD check
 cat("CHECK 1/2: R CMD CHECK\n")
-cat("------------------------------------------------------------------------------\n")
+cat(
+  "------------------------------------------------------------------------------\n"
+)
 check_start <- Sys.time()
 
 check_result <- devtools::check()
@@ -72,23 +78,31 @@ check_result <- devtools::check()
 check_time <- difftime(Sys.time(), check_start, units = "secs")
 
 cat(sprintf("\nR CMD check completed in %.1f seconds\n", check_time))
-cat(sprintf("  Errors:   %d %s\n",
-            length(check_result$errors),
-            ifelse(length(check_result$errors) == 0, "\u2714", "\u2716")))
-cat(sprintf("  Warnings: %d %s\n",
-            length(check_result$warnings),
-            ifelse(length(check_result$warnings) == 0, "\u2714", "\u2716")))
-cat(sprintf("  Notes:    %d %s\n",
-            length(check_result$notes),
-            ifelse(length(check_result$notes) == 0, "\u2714", "\u2716")))
+cat(sprintf(
+  "  Errors:   %d %s\n",
+  length(check_result$errors),
+  ifelse(length(check_result$errors) == 0, "\u2714", "\u2716")
+))
+cat(sprintf(
+  "  Warnings: %d %s\n",
+  length(check_result$warnings),
+  ifelse(length(check_result$warnings) == 0, "\u2714", "\u2716")
+))
+cat(sprintf(
+  "  Notes:    %d %s\n",
+  length(check_result$notes),
+  ifelse(length(check_result$notes) == 0, "\u2714", "\u2716")
+))
 
 check_passed <- (length(check_result$errors) == 0 &&
-                 length(check_result$warnings) == 0 &&
-                 length(check_result$notes) == 0)
+  length(check_result$warnings) == 0 &&
+  length(check_result$notes) == 0)
 
 # Check 2: Good practice
 cat("\nCHECK 2/2: GOOD PRACTICE ANALYSIS\n")
-cat("------------------------------------------------------------------------------\n")
+cat(
+  "------------------------------------------------------------------------------\n"
+)
 gp_start <- Sys.time()
 
 gp_result <- goodpractice::gp(quiet = TRUE)
@@ -101,9 +115,13 @@ print(gp_result)
 # Final summary
 total_time <- difftime(Sys.time(), overall_start, units = "secs")
 
-cat("\n==============================================================================\n")
+cat(
+  "\n==============================================================================\n"
+)
 cat("LOCAL CHECKS COMPLETE\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat(sprintf("Total time: %.1f seconds\n\n", total_time))
 
 if (check_passed) {
@@ -120,7 +138,9 @@ if (check_passed) {
   cat("  3. Ensure all checks pass\n")
 }
 
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 
 # Return results invisibly
 invisible(list(check = check_result, gp = gp_result))

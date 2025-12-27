@@ -40,9 +40,13 @@
 # ==============================================================================
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("INSTALL JARL LINTER (RUST-BASED CLI TOOL)\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("IMPORTANT: Jarl is NOT an R package!\n")
 cat("It's a standalone command-line tool written in Rust.\n")
@@ -64,14 +68,15 @@ if (os == "Linux" || os == "Darwin") {
   cat("  3. Make it available as 'jarl' command\n\n")
 
   cat("Run this command in your terminal:\n\n")
-  cat("  curl --proto '=https' --tlsv1.2 -LsSf https://github.com/etiennebacher/jarl/releases/latest/download/jarl-installer.sh | sh\n\n")
+  cat(
+    "  curl --proto '=https' --tlsv1.2 -LsSf https://github.com/etiennebacher/jarl/releases/latest/download/jarl-installer.sh | sh\n\n"
+  )
 
   cat("After installation, verify with:\n")
   cat("  jarl --version\n\n")
 
   cat("NOTE: You may need to restart your terminal or run:\n")
   cat("  source ~/.bashrc    # or ~/.zshrc, depending on your shell\n\n")
-
 } else if (os == "Windows") {
   cat("INSTALLATION METHOD: PowerShell installer (recommended)\n")
   cat("========================================================\n\n")
@@ -82,33 +87,44 @@ if (os == "Linux" || os == "Darwin") {
   cat("  3. Make it available as 'jarl' command\n\n")
 
   cat("Run this command in PowerShell:\n\n")
-  cat("  irm https://github.com/etiennebacher/jarl/releases/latest/download/jarl-installer.ps1 | iex\n\n")
+  cat(
+    "  irm https://github.com/etiennebacher/jarl/releases/latest/download/jarl-installer.ps1 | iex\n\n"
+  )
 
   cat("After installation, verify with:\n")
   cat("  jarl --version\n\n")
 
   cat("NOTE: You may need to restart PowerShell.\n\n")
-
 } else {
   cat("WARNING: Unsupported OS detected.\n")
   cat("Please install manually using Cargo.\n\n")
 }
 
 # Alternative: Cargo installation
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("ALTERNATIVE: INSTALL VIA CARGO (if you have Rust installed)\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("If you have the Rust toolchain installed:\n\n")
-cat("  cargo install --git https://github.com/etiennebacher/jarl jarl --profile=release\n\n")
+cat(
+  "  cargo install --git https://github.com/etiennebacher/jarl jarl --profile=release\n\n"
+)
 
 cat("To install Rust first:\n")
 cat("  Visit: https://rustup.rs/\n\n")
 
 # Usage instructions
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("USAGE (AFTER INSTALLATION)\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("Jarl is a COMMAND-LINE TOOL, not an R package.\n")
 cat("Use it from the terminal/command prompt:\n\n")
@@ -141,12 +157,18 @@ cat("  Extension ID: EtienneBacher.jarl-vscode\n\n")
 cat("MORE INFORMATION:\n")
 cat("-----------------\n")
 cat("  GitHub:  https://github.com/etiennebacher/jarl\n")
-cat("  Blog:    https://www.etiennebacher.com/posts/2025-11-20-introducing-jarl/\n")
+cat(
+  "  Blog:    https://www.etiennebacher.com/posts/2025-11-20-introducing-jarl/\n"
+)
 cat("  Releases: https://github.com/etiennebacher/jarl/releases\n\n")
 
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("R PACKAGE ALTERNATIVES\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("If you prefer a traditional R package linter:\n\n")
 cat("  # lintr (most popular R linter)\n")
@@ -157,7 +179,9 @@ cat("  # styler (code formatter)\n")
 cat("  install.packages('styler')\n")
 cat("  styler::style_pkg()\n\n")
 
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("To install jarl, copy and paste the appropriate command above\n")
 cat("into your terminal (not R console).\n\n")

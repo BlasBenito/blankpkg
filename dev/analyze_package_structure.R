@@ -52,9 +52,13 @@ get_package_name <- function() {
 }
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("PACKAGE STRUCTURE ANALYSIS\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 pkg_name <- get_package_name()
 cat(sprintf("Package: %s\n\n", pkg_name))
@@ -70,7 +74,11 @@ cat(sprintf("R files: %d\n", length(r_files)))
 all_functions <- c()
 for (file in r_files) {
   lines <- readLines(file, warn = FALSE)
-  func_lines <- grep("^[a-zA-Z_][a-zA-Z0-9_.]*\\s*<-\\s*function", lines, value = TRUE)
+  func_lines <- grep(
+    "^[a-zA-Z_][a-zA-Z0-9_.]*\\s*<-\\s*function",
+    lines,
+    value = TRUE
+  )
   func_names <- sub("\\s*<-.*", "", func_lines)
   func_names <- trimws(func_names)
   all_functions <- c(all_functions, func_names)
@@ -84,9 +92,15 @@ if (file.exists("NAMESPACE")) {
   export_lines <- grep("^export\\(", ns_lines, value = TRUE)
   exported_funcs <- gsub("export\\((.*)\\)", "\\1", export_lines)
   cat(sprintf("Exported functions: %d\n", length(exported_funcs)))
-  cat(sprintf("Internal functions: %d\n", length(all_functions) - length(exported_funcs)))
+  cat(sprintf(
+    "Internal functions: %d\n",
+    length(all_functions) - length(exported_funcs)
+  ))
   if (length(all_functions) > 0) {
-    cat(sprintf("Export ratio: %.1f%%\n", 100 * length(exported_funcs) / length(all_functions)))
+    cat(sprintf(
+      "Export ratio: %.1f%%\n",
+      100 * length(exported_funcs) / length(all_functions)
+    ))
   }
 } else {
   cat("NAMESPACE not found (run devtools::document())\n")
@@ -149,9 +163,16 @@ cat("\n")
 cat("PACKAGE SIZE\n")
 cat("------------\n")
 
-total_size <- sum(file.info(list.files(".", recursive = TRUE, full.names = TRUE))$size, na.rm = TRUE)
+total_size <- sum(
+  file.info(list.files(".", recursive = TRUE, full.names = TRUE))$size,
+  na.rm = TRUE
+)
 cat(sprintf("Total size: %.2f MB\n", total_size / (1024^2)))
 
-cat("\n==============================================================================\n")
+cat(
+  "\n==============================================================================\n"
+)
 cat("STRUCTURE ANALYSIS COMPLETE\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)

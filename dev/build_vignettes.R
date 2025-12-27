@@ -45,17 +45,26 @@ if (!requireNamespace("devtools", quietly = TRUE)) {
 }
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("BUILD VIGNETTES\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 # Check if vignettes exist
-if (!dir.exists("vignettes") || length(list.files("vignettes", pattern = "\\.Rmd$")) == 0) {
+if (
+  !dir.exists("vignettes") ||
+    length(list.files("vignettes", pattern = "\\.Rmd$")) == 0
+) {
   cat("No vignettes found in vignettes/ directory.\n\n")
   cat("This package has no vignettes to build.\n")
   cat("To create one:\n")
   cat("  usethis::use_vignette('vignette-name')\n")
-  cat("==============================================================================\n")
+  cat(
+    "==============================================================================\n"
+  )
   stop("No vignettes found", call. = FALSE)
 }
 
@@ -68,7 +77,9 @@ cat("\n")
 
 cat("Building vignettes...\n")
 cat("(This may take a while if vignettes have expensive computations)\n")
-cat("------------------------------------------------------------------------------\n\n")
+cat(
+  "------------------------------------------------------------------------------\n\n"
+)
 
 start_time <- Sys.time()
 
@@ -77,12 +88,18 @@ devtools::build_vignettes()
 
 build_time <- difftime(Sys.time(), start_time, units = "secs")
 
-cat("\n==============================================================================\n")
+cat(
+  "\n==============================================================================\n"
+)
 cat("VIGNETTES BUILD COMPLETE\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat(sprintf("Build time: %.1f seconds\n\n", build_time))
 
 cat("Built vignettes saved to: inst/doc/\n")
 cat("\nTo view vignettes:\n")
 cat("  browseVignettes('packagename')\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)

@@ -47,9 +47,13 @@ if (!requireNamespace("devtools", quietly = TRUE)) {
 }
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("REMOTE VALIDATION CHECKS (STEP 3/4)\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("IMPORTANT INFORMATION:\n")
 cat("======================\n")
@@ -59,13 +63,17 @@ cat("Typical wait time: 15-60 minutes\n")
 cat("Check your spam folder if results don't arrive.\n\n")
 
 if (interactive()) {
-  cat("Press ENTER to submit package for remote checks, or Ctrl+C to cancel...\n")
+  cat(
+    "Press ENTER to submit package for remote checks, or Ctrl+C to cancel...\n"
+  )
   readline()
 } else {
   cat("Running in non-interactive mode - proceeding with submission...\n")
 }
 
-cat("\n==============================================================================\n\n")
+cat(
+  "\n==============================================================================\n\n"
+)
 
 # Submit to Windows builder
 cat("SUBMITTING TO WINDOWS R-DEVEL BUILDER\n")
@@ -79,9 +87,13 @@ cat("--------------------------------------\n")
 devtools::check_mac_release()
 cat("\n\u2714 Submitted to macOS builder\n\n")
 
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("REMOTE CHECKS SUBMITTED\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("WHAT HAPPENS NEXT:\n")
 cat("==================\n")
@@ -101,4 +113,6 @@ cat("  1. Fix the reported issues\n")
 cat("  2. Return to step 2: source('dev/release_02_local_checks.R')\n")
 cat("  3. Rerun all checks\n")
 
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)

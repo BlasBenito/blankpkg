@@ -56,7 +56,11 @@ dev_pkgdown_build_site <- function(
 
     if (fs::dir_exists(docs_dir)) {
       # Count generated files
-      html_files <- length(fs::dir_ls(docs_dir, recurse = TRUE, glob = "*.html"))
+      html_files <- length(fs::dir_ls(
+        docs_dir,
+        recurse = TRUE,
+        glob = "*.html"
+      ))
       cli::cli_text("Generated {html_files} HTML page{?s}")
     }
   }
@@ -107,7 +111,8 @@ dev_pkgdown_customize_site <- function(pkg = ".", quiet = FALSE) {
 
     cli::cli_h2("Example Configuration")
     cli::cli_text("")
-    cli::cli_code("
+    cli::cli_code(
+      "
 template:
   bootstrap: 5
   bootswatch: cosmo
@@ -122,7 +127,8 @@ reference:
     desc: Most commonly used functions
     contents:
     - starts_with('dev_')
-")
+"
+    )
 
     cli::cli_h2("Resources")
     cli::cli_ul(c(

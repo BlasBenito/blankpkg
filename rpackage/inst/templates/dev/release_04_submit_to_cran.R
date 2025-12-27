@@ -49,9 +49,13 @@ if (!requireNamespace("devtools", quietly = TRUE)) {
 }
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("SUBMIT TO CRAN (STEP 4/4 - FINAL)\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("FINAL PRE-SUBMISSION CHECKLIST\n")
 cat("==============================\n\n")
@@ -77,7 +81,9 @@ cat("  - Respond to CRAN emails promptly\n")
 cat("  - Be polite and professional in all communications\n")
 cat("  - Re-submission window is typically 2-4 weeks\n\n")
 
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 if (interactive()) {
   cat("Are you ready to submit to CRAN?\n")
@@ -87,7 +93,9 @@ if (interactive()) {
   if (response != "yes") {
     cat("\nSubmission cancelled.\n")
     cat("Review checklist and rerun when ready.\n")
-    cat("==============================================================================\n")
+    cat(
+      "==============================================================================\n"
+    )
     stop("Submission cancelled by user", call. = FALSE)
   }
 } else {
@@ -96,9 +104,13 @@ if (interactive()) {
   cat("Proceeding with CRAN submission...\n\n")
 }
 
-cat("\n==============================================================================\n")
+cat(
+  "\n==============================================================================\n"
+)
 cat("INITIATING CRAN SUBMISSION\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("Launching devtools::release()...\n")
 cat("Follow the interactive prompts carefully.\n\n")
@@ -106,9 +118,13 @@ cat("Follow the interactive prompts carefully.\n\n")
 # Run release
 devtools::release()
 
-cat("\n==============================================================================\n")
+cat(
+  "\n==============================================================================\n"
+)
 cat("POST-SUBMISSION STEPS\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("WHAT TO DO NOW:\n")
 cat("===============\n")
@@ -130,4 +146,6 @@ cat("2. Restart release process from step 1\n")
 cat("3. Re-submit within the allowed window (typically 2-4 weeks)\n\n")
 
 cat("CONGRATULATIONS on submitting to CRAN!\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)

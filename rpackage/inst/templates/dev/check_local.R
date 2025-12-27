@@ -45,12 +45,18 @@ if (!requireNamespace("devtools", quietly = TRUE)) {
 }
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("LOCAL R CMD CHECK\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("Running comprehensive package check...\n")
-cat("(This validates package structure, documentation, examples, and tests)\n\n")
+cat(
+  "(This validates package structure, documentation, examples, and tests)\n\n"
+)
 
 start_time <- Sys.time()
 
@@ -61,29 +67,45 @@ result <- devtools::check()
 check_time <- difftime(Sys.time(), start_time, units = "secs")
 
 # Print summary
-cat("\n==============================================================================\n")
+cat(
+  "\n==============================================================================\n"
+)
 cat("CHECK COMPLETE\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat(sprintf("Check time: %.1f seconds\n\n", check_time))
 
 cat("Results:\n")
-cat(sprintf("  Errors:   %d %s\n",
-            length(result$errors),
-            ifelse(length(result$errors) == 0, "\u2714", "\u2716")))
-cat(sprintf("  Warnings: %d %s\n",
-            length(result$warnings),
-            ifelse(length(result$warnings) == 0, "\u2714", "\u2716")))
-cat(sprintf("  Notes:    %d %s\n",
-            length(result$notes),
-            ifelse(length(result$notes) == 0, "\u2714", "\u2716")))
+cat(sprintf(
+  "  Errors:   %d %s\n",
+  length(result$errors),
+  ifelse(length(result$errors) == 0, "\u2714", "\u2716")
+))
+cat(sprintf(
+  "  Warnings: %d %s\n",
+  length(result$warnings),
+  ifelse(length(result$warnings) == 0, "\u2714", "\u2716")
+))
+cat(sprintf(
+  "  Notes:    %d %s\n",
+  length(result$notes),
+  ifelse(length(result$notes) == 0, "\u2714", "\u2716")
+))
 
-if (length(result$errors) == 0 && length(result$warnings) == 0 && length(result$notes) == 0) {
+if (
+  length(result$errors) == 0 &&
+    length(result$warnings) == 0 &&
+    length(result$notes) == 0
+) {
   cat("\n\u2714 PACKAGE PASSED ALL CHECKS\n")
 } else {
   cat("\n\u2716 FIX ISSUES ABOVE BEFORE PROCEEDING\n")
 }
 
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 
 # Return result invisibly
 invisible(result)

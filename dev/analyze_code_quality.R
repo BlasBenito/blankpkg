@@ -47,19 +47,32 @@ if (!requireNamespace("codetools", quietly = TRUE)) {
 }
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("CODE QUALITY ANALYSIS\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("Analyzing code for potential issues...\n")
-cat("------------------------------------------------------------------------------\n\n")
+cat(
+  "------------------------------------------------------------------------------\n\n"
+)
 
 # Get all R files
-r_files <- list.files("R", pattern = "\\.R$", full.names = TRUE, recursive = TRUE)
+r_files <- list.files(
+  "R",
+  pattern = "\\.R$",
+  full.names = TRUE,
+  recursive = TRUE
+)
 
 if (length(r_files) == 0) {
   cat("No R files found in R/ directory.\n")
-  cat("==============================================================================\n")
+  cat(
+    "==============================================================================\n"
+  )
   stop("No R files to analyze", call. = FALSE)
 }
 
@@ -78,28 +91,31 @@ for (r_file in r_files) {
   # Capture codetools output
   analysis_error <- FALSE
   issues <- capture.output({
-    tryCatch({
-      # Source file and check
-      env <- new.env()
-      source(r_file, local = env)
+    tryCatch(
+      {
+        # Source file and check
+        env <- new.env()
+        source(r_file, local = env)
 
-      # Check all functions in the file
-      func_names <- ls(env)
-      for (func_name in func_names) {
-        func <- get(func_name, envir = env)
-        if (is.function(func)) {
-          codetools::checkUsage(func, name = func_name)
+        # Check all functions in the file
+        func_names <- ls(env)
+        for (func_name in func_names) {
+          func <- get(func_name, envir = env)
+          if (is.function(func)) {
+            codetools::checkUsage(func, name = func_name)
+          }
         }
+      },
+      error = function(e) {
+        analysis_error <<- TRUE
+        cat(sprintf("ERROR: Failed to analyze this file\n"))
+        cat(sprintf("Reason: %s\n", e$message))
+        cat("Possible causes:\n")
+        cat("  - Syntax errors in the file\n")
+        cat("  - Top-level code that fails when sourced\n")
+        cat("  - Missing dependencies\n")
       }
-    }, error = function(e) {
-      analysis_error <<- TRUE
-      cat(sprintf("ERROR: Failed to analyze this file\n"))
-      cat(sprintf("Reason: %s\n", e$message))
-      cat("Possible causes:\n")
-      cat("  - Syntax errors in the file\n")
-      cat("  - Top-level code that fails when sourced\n")
-      cat("  - Missing dependencies\n")
-    })
+    )
   })
 
   # If there was an error, mark it
@@ -121,16 +137,24 @@ for (r_file in r_files) {
 }
 
 # Summary
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("CODE QUALITY ANALYSIS COMPLETE\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat(sprintf("Total potential issues found: %d\n\n", total_issues))
 
 if (total_issues > 0) {
   cat("COMMON ISSUES EXPLAINED:\n")
   cat("------------------------\n")
-  cat("- 'no visible binding for global variable': May need @importFrom or utils::\n")
-  cat("- 'no visible global function definition': Import the function or use pkg::\n")
+  cat(
+    "- 'no visible binding for global variable': May need @importFrom or utils::\n"
+  )
+  cat(
+    "- 'no visible global function definition': Import the function or use pkg::\n"
+  )
   cat("- 'local variable assigned but not used': Remove unused variables\n")
   cat("- 'parameter never used': Consider removing or using parameter\n\n")
 
@@ -151,4 +175,6 @@ if (total_issues > 0) {
   cat("\nYour code passes static analysis.\n")
 }
 
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)

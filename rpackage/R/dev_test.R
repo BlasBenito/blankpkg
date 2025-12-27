@@ -68,7 +68,9 @@ dev_test_coverage <- function(
   }
 
   if (show_report) {
-    if (!quiet) cli::cli_alert_info("Opening interactive coverage report...")
+    if (!quiet) {
+      cli::cli_alert_info("Opening interactive coverage report...")
+    }
     covr::report(coverage)
   }
 

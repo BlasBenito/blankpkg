@@ -38,9 +38,13 @@
 # ==============================================================================
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("SETUP RCPP INFRASTRUCTURE\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 # Check prerequisites
 if (!requireNamespace("usethis", quietly = TRUE)) {
@@ -59,33 +63,38 @@ if (!requireNamespace("Rcpp", quietly = TRUE)) {
 
 # Check for C++ compiler
 cat("Checking for C++ compiler...\n")
-cat("------------------------------------------------------------------------------\n")
+cat(
+  "------------------------------------------------------------------------------\n"
+)
 
-has_compiler <- tryCatch({
-  # Check if pkgbuild is available
-  if (!requireNamespace("pkgbuild", quietly = TRUE)) {
-    cat("pkgbuild package not found. Installing...\n")
-    install.packages("pkgbuild")
-
-    # Verify installation succeeded
+has_compiler <- tryCatch(
+  {
+    # Check if pkgbuild is available
     if (!requireNamespace("pkgbuild", quietly = TRUE)) {
-      cat("\n")
-      cat("ERROR: Failed to install pkgbuild package!\n")
-      cat("Please install manually:\n")
-      cat("  install.packages('pkgbuild')\n\n")
-      stop("pkgbuild package required for compiler detection", call. = FALSE)
-    }
-    cat("pkgbuild installed successfully.\n\n")
-  }
+      cat("pkgbuild package not found. Installing...\n")
+      install.packages("pkgbuild")
 
-  # Check for compiler
-  pkgbuild::has_compiler()
-}, error = function(e) {
-  cat("\n")
-  cat("ERROR: Failed to check for C++ compiler.\n")
-  cat(sprintf("Error message: %s\n\n", e$message))
-  FALSE
-})
+      # Verify installation succeeded
+      if (!requireNamespace("pkgbuild", quietly = TRUE)) {
+        cat("\n")
+        cat("ERROR: Failed to install pkgbuild package!\n")
+        cat("Please install manually:\n")
+        cat("  install.packages('pkgbuild')\n\n")
+        stop("pkgbuild package required for compiler detection", call. = FALSE)
+      }
+      cat("pkgbuild installed successfully.\n\n")
+    }
+
+    # Check for compiler
+    pkgbuild::has_compiler()
+  },
+  error = function(e) {
+    cat("\n")
+    cat("ERROR: Failed to check for C++ compiler.\n")
+    cat(sprintf("Error message: %s\n\n", e$message))
+    FALSE
+  }
+)
 
 if (!has_compiler) {
   cat("\n")
@@ -127,7 +136,9 @@ cat(sprintf("Setting up Rcpp for package: %s\n\n", pkg_name))
 
 # Run usethis::use_rcpp()
 cat("STEP 1: Running usethis::use_rcpp()...\n")
-cat("------------------------------------------------------------------------------\n")
+cat(
+  "------------------------------------------------------------------------------\n"
+)
 
 usethis::use_rcpp()
 
@@ -135,9 +146,12 @@ cat("\n✓ Rcpp infrastructure configured\n\n")
 
 # Create example C++ file
 cat("STEP 2: Creating example C++ function...\n")
-cat("------------------------------------------------------------------------------\n")
+cat(
+  "------------------------------------------------------------------------------\n"
+)
 
-example_cpp <- sprintf('
+example_cpp <- sprintf(
+  '
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -179,7 +193,8 @@ NumericVector cpp_vectorized_example(NumericVector x, NumericVector y) {
   // Rcpp sugar allows vectorized operations
   return pow(x + y, 2.0);
 }
-')
+'
+)
 
 # Write example file
 example_file <- "src/rcpp_examples.cpp"
@@ -189,10 +204,14 @@ cat(sprintf("✓ Created example file: %s\n\n", example_file))
 
 # Create RcppExports.R placeholder
 cat("STEP 3: Preparing for compilation...\n")
-cat("------------------------------------------------------------------------------\n")
+cat(
+  "------------------------------------------------------------------------------\n"
+)
 
 cat("\nNext, you need to compile the C++ code and generate R wrappers.\n")
-cat("This happens automatically when you run devtools::document() or devtools::load_all()\n\n")
+cat(
+  "This happens automatically when you run devtools::document() or devtools::load_all()\n\n"
+)
 
 cat("Run now:\n")
 cat("  devtools::document()\n\n")
@@ -204,9 +223,13 @@ cat("  - Generate src/RcppExports.cpp with C++ wrappers\n")
 cat("  - Update NAMESPACE with exports\n\n")
 
 # Provide usage guidance
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("RCPP SETUP COMPLETE - NEXT STEPS\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("1. COMPILE AND DOCUMENT:\n")
 cat("   Run this now to compile C++ code:\n")
@@ -256,7 +279,9 @@ cat("     NumericVector times_two(NumericVector x) { return x * 2; }\n\n")
 
 cat("   Matrix operations:\n")
 cat("     // [[Rcpp::export]]\n")
-cat("     NumericMatrix transpose(NumericMatrix x) { return Rcpp::transpose(x); }\n\n")
+cat(
+  "     NumericMatrix transpose(NumericMatrix x) { return Rcpp::transpose(x); }\n\n"
+)
 
 cat("   Using R's RNG:\n")
 cat("     // [[Rcpp::export]]\n")
@@ -270,11 +295,17 @@ cat("   - Use devtools::load_all() to recompile during development\n\n")
 
 cat("8. PERFORMANCE:\n")
 cat("   - Rcpp is best for loops and operations not vectorizable in R\n")
-cat("   - For simple operations, R's vectorized functions are often faster (no, really!)\n")
+cat(
+  "   - For simple operations, R's vectorized functions are often faster (no, really!)\n"
+)
 cat("   - Profile before optimizing: Rprof() or profvis::profvis()\n")
-cat("   - Benchmark with microbenchmark package (see dev/analyze_performance.R)\n\n")
+cat(
+  "   - Benchmark with microbenchmark package (see dev/analyze_performance.R)\n\n"
+)
 
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("Ready to compile! Run:\n")
 cat("  devtools::document()\n\n")

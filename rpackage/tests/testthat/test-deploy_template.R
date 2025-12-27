@@ -22,7 +22,16 @@ test_that("deploy_template creates package structure", {
 
   # Check result structure
   expect_type(result, "list")
-  expect_named(result, c("path", "package_name", "files_created", "git_initialized", "rstudio_project"))
+  expect_named(
+    result,
+    c(
+      "path",
+      "package_name",
+      "files_created",
+      "git_initialized",
+      "rstudio_project"
+    )
+  )
 
   # Check directory created
   expect_true(dir.exists(tmp))

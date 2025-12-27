@@ -4,7 +4,9 @@
 
 .onAttach <- function(libname, pkgname) {
   packageStartupMessage(
-    "rpkgdev ", utils::packageVersion("rpkgdev"), " - R Package Development Tools\n",
+    "rpkgdev ",
+    utils::packageVersion("rpkgdev"),
+    " - R Package Development Tools\n",
     "\n",
     "Quick start:\n",
     "  * dev_test()                # Run tests\n",

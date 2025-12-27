@@ -49,9 +49,13 @@ if (!requireNamespace("goodpractice", quietly = TRUE)) {
 }
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("GOOD PRACTICE ANALYSIS\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("Analyzing package for best practices...\n")
 cat("(This may take 1-3 minutes)\n\n")
@@ -67,15 +71,21 @@ print(gp_result)
 # Calculate timing
 check_time <- difftime(Sys.time(), start_time, units = "secs")
 
-cat("\n==============================================================================\n")
+cat(
+  "\n==============================================================================\n"
+)
 cat("ANALYSIS COMPLETE\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat(sprintf("Analysis time: %.1f seconds\n\n", check_time))
 
 cat("Review recommendations above.\n")
 cat("Not all suggestions are mandatory, but consider each one.\n")
 cat("Address critical issues before CRAN submission.\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 
 # Return results invisibly
 invisible(gp_result)

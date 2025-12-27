@@ -122,7 +122,9 @@ dev_release_check_local <- function(
       cli::cli_alert_danger("Fix errors and warnings before continuing")
     } else {
       cli::cli_alert_success("Local checks passed!")
-      cli::cli_text("Run {.code dev_release_check_remote()} for platform checks")
+      cli::cli_text(
+        "Run {.code dev_release_check_remote()} for platform checks"
+      )
     }
   }
 
@@ -167,7 +169,9 @@ dev_release_check_remote <- function(
 
   # Submit to macOS
   if (check_macos) {
-    if (!quiet && check_windows) cli::cli_text("")
+    if (!quiet && check_windows) {
+      cli::cli_text("")
+    }
     dev_check_macos(pkg = pkg, quiet = quiet)
   }
 
@@ -180,7 +184,9 @@ dev_release_check_remote <- function(
       "Fix any platform-specific issues",
       "Run {.code dev_release_submit()} for final CRAN submission"
     ))
-    cli::cli_alert_warning("Do not proceed until all checks pass on all platforms")
+    cli::cli_alert_warning(
+      "Do not proceed until all checks pass on all platforms"
+    )
   }
 
   invisible(NULL)

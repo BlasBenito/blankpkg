@@ -40,9 +40,13 @@
 # ==============================================================================
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("RELEASE PREPARATION CHECKLIST (STEP 1/4)\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("RELEASE PREPARATION TASKS:\n")
 cat("==========================\n\n")
@@ -85,7 +89,10 @@ if (requireNamespace("spelling", quietly = TRUE)) {
   if (nrow(spelling_errors) == 0) {
     cat("    \u2714 No spelling errors found\n")
   } else {
-    cat(sprintf("    \u2716 Found %d spelling error(s):\n", nrow(spelling_errors)))
+    cat(sprintf(
+      "    \u2716 Found %d spelling error(s):\n",
+      nrow(spelling_errors)
+    ))
     print(spelling_errors)
     cat("\n    Fix errors and rerun this script\n")
   }
@@ -104,9 +111,15 @@ cat("    - Ensure examples run without errors\n")
 cat("    - Update README.md if needed\n")
 cat("    - Build vignettes if they exist\n\n")
 
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("NEXT STEPS\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("After completing all tasks above:\n")
 cat("  source('dev/release_02_local_checks.R')\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)

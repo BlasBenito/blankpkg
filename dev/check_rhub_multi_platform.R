@@ -59,9 +59,13 @@ if (!requireNamespace("devtools", quietly = TRUE)) {
 }
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("MULTI-PLATFORM PACKAGE CHECKS\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("This will run checks on multiple platforms:\n")
 cat("  - Windows R-devel\n")
@@ -75,14 +79,20 @@ cat("First-time setup (if needed):\n")
 cat("  rhub::rhub_setup()\n")
 cat("  rhub::rhub_doctor()\n\n")
 
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 # Verify GITHUB_PAT is configured
 if (Sys.getenv("GITHUB_PAT") == "") {
   cat("\n")
   cat("ERROR: GITHUB_PAT environment variable not set!\n")
-  cat("==============================================================================\n\n")
-  cat("R-Hub requires GitHub authentication via a Personal Access Token (PAT).\n\n")
+  cat(
+    "==============================================================================\n\n"
+  )
+  cat(
+    "R-Hub requires GitHub authentication via a Personal Access Token (PAT).\n\n"
+  )
   cat("To set up your GITHUB_PAT:\n")
   cat("  1. Create a GitHub token:\n")
   cat("       usethis::create_github_token()\n")
@@ -100,7 +110,9 @@ if (Sys.getenv("GITHUB_PAT") == "") {
   cat("  5. Run rhub setup:\n")
   cat("       rhub::rhub_setup()\n")
   cat("       rhub::rhub_doctor()\n\n")
-  cat("==============================================================================\n")
+  cat(
+    "==============================================================================\n"
+  )
   stop("GITHUB_PAT required for rhub authentication", call. = FALSE)
 }
 
@@ -116,7 +128,9 @@ cat("Mac check submitted.\n\n")
 
 # Full rhub multi-platform check
 cat("Starting R-Hub multi-platform checks...\n")
-cat("(20 platforms including linux, macos-arm64, windows, and various compilers)\n\n")
+cat(
+  "(20 platforms including linux, macos-arm64, windows, and various compilers)\n\n"
+)
 
 rhub::rhub_check(
   platforms = c(
@@ -143,9 +157,15 @@ rhub::rhub_check(
   )
 )
 
-cat("\n==============================================================================\n")
+cat(
+  "\n==============================================================================\n"
+)
 cat("ALL CHECKS SUBMITTED\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("Check your email for results (usually arrives in 15-60 minutes).\n")
 cat("You can also view results on the R-Hub website.\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)

@@ -59,16 +59,22 @@ get_package_name <- function() {
 pkg_name <- get_package_name()
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("PKGDOWN SITE CUSTOMIZATION GUIDE\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat(sprintf("Package: %s\n\n", pkg_name))
 
 # Check current configuration
 if (file.exists("_pkgdown.yml")) {
   cat("Current _pkgdown.yml configuration:\n")
-  cat("------------------------------------------------------------------------------\n")
+  cat(
+    "------------------------------------------------------------------------------\n"
+  )
   current_config <- readLines("_pkgdown.yml")
   cat(paste(current_config, collapse = "\n"))
   cat("\n\n")
@@ -82,9 +88,13 @@ if (file.exists("_pkgdown.yml")) {
 # CUSTOMIZATION GUIDE
 # ==============================================================================
 
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("CUSTOMIZATION OPTIONS\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("Below are templates for common pkgdown customizations.\n")
 cat("Copy the sections you want to _pkgdown.yml and modify as needed.\n\n")
@@ -242,7 +252,12 @@ cat("  links:\n")
 cat("    - text: Browse source code\n")
 cat("      href: https://github.com/yourusername/", pkg_name, "\n", sep = "")
 cat("    - text: Report a bug\n")
-cat("      href: https://github.com/yourusername/", pkg_name, "/issues\n", sep = "")
+cat(
+  "      href: https://github.com/yourusername/",
+  pkg_name,
+  "/issues\n",
+  sep = ""
+)
 cat("  \n")
 cat("  sidebar:\n")
 cat("    structure: [links, license, community, citation, authors, dev]\n")
@@ -251,9 +266,30 @@ cat("```\n\n")
 cat("Add badges to README.md (automatically shown on home page):\n\n")
 cat("```markdown\n")
 cat("<!-- badges: start -->\n")
-cat("[![CRAN status](https://www.r-pkg.org/badges/version/", pkg_name, ")](https://CRAN.R-project.org/package=", pkg_name, ")\n", sep = "")
-cat("[![R-CMD-check](https://github.com/yourusername/", pkg_name, "/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/yourusername/", pkg_name, "/actions/workflows/R-CMD-check.yaml)\n", sep = "")
-cat("[![Codecov](https://codecov.io/gh/yourusername/", pkg_name, "/branch/main/graph/badge.svg)](https://codecov.io/gh/yourusername/", pkg_name, ")\n", sep = "")
+cat(
+  "[![CRAN status](https://www.r-pkg.org/badges/version/",
+  pkg_name,
+  ")](https://CRAN.R-project.org/package=",
+  pkg_name,
+  ")\n",
+  sep = ""
+)
+cat(
+  "[![R-CMD-check](https://github.com/yourusername/",
+  pkg_name,
+  "/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/yourusername/",
+  pkg_name,
+  "/actions/workflows/R-CMD-check.yaml)\n",
+  sep = ""
+)
+cat(
+  "[![Codecov](https://codecov.io/gh/yourusername/",
+  pkg_name,
+  "/branch/main/graph/badge.svg)](https://codecov.io/gh/yourusername/",
+  pkg_name,
+  ")\n",
+  sep = ""
+)
 cat("<!-- badges: end -->\n")
 cat("```\n\n")
 
@@ -387,9 +423,13 @@ cat("This sets up automatic deployment on push\n\n")
 # COMPLETE EXAMPLE CONFIGURATION
 # ==============================================================================
 
-cat("\n==============================================================================\n")
+cat(
+  "\n==============================================================================\n"
+)
 cat("COMPLETE EXAMPLE CONFIGURATION\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("Copy this entire template to _pkgdown.yml and customize:\n\n")
 cat("```yaml\n")
@@ -445,9 +485,13 @@ cat("```\n\n")
 # PREVIEW OPTION
 # ==============================================================================
 
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("NEXT STEPS\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("1. Edit _pkgdown.yml with your chosen customizations\n\n")
 
@@ -464,13 +508,17 @@ cat("   - Option B: usethis::use_pkgdown_github_pages() (automatic)\n\n")
 cat("RESOURCES:\n")
 cat("----------\n")
 cat("- pkgdown documentation: https://pkgdown.r-lib.org/\n")
-cat("- Customization guide: https://pkgdown.r-lib.org/articles/customise.html\n")
+cat(
+  "- Customization guide: https://pkgdown.r-lib.org/articles/customise.html\n"
+)
 cat("- Examples from packages:\n")
 cat("  * dplyr: https://dplyr.tidyverse.org/\n")
 cat("  * ggplot2: https://ggplot2.tidyverse.org/\n")
 cat("  * testthat: https://testthat.r-lib.org/\n\n")
 
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 
 # Offer to preview current site
 if (interactive()) {

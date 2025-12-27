@@ -64,9 +64,13 @@ if (!requireNamespace("pkgnet", quietly = TRUE)) {
 pkg_name <- get_package_name()
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("PACKAGE DEPENDENCY ANALYSIS\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 cat(sprintf("Analyzing package: %s\n\n", pkg_name))
 
 # Create report path
@@ -81,9 +85,13 @@ report <- pkgnet::CreatePackageReport(
   report_path = report_path
 )
 
-cat("\n==============================================================================\n")
+cat(
+  "\n==============================================================================\n"
+)
 cat("ANALYSIS COMPLETE\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat(sprintf("Report saved to: %s\n", report_path))
 cat("\nThe report should open automatically in your browser.\n")
 cat("If not, open the file manually to view:\n")
@@ -91,7 +99,9 @@ cat("  - Function dependency networks\n")
 cat("  - Package structure visualization\n")
 cat("  - Complexity metrics\n")
 cat("  - Dependency graphs\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 
 # Return report invisibly
 invisible(report)

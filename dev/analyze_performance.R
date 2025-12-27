@@ -43,21 +43,34 @@
 
 # Check prerequisites
 required_packages <- c("microbenchmark", "profvis", "devtools")
-missing_packages <- required_packages[!sapply(required_packages, requireNamespace, quietly = TRUE)]
+missing_packages <- required_packages[
+  !sapply(required_packages, requireNamespace, quietly = TRUE)
+]
 
 if (length(missing_packages) > 0) {
   stop(
-    sprintf("Required packages missing: %s\n", paste(missing_packages, collapse = ", ")),
-    "Install with: install.packages(c('", paste(missing_packages, collapse = "', '"), "'))"
+    sprintf(
+      "Required packages missing: %s\n",
+      paste(missing_packages, collapse = ", ")
+    ),
+    "Install with: install.packages(c('",
+    paste(missing_packages, collapse = "', '"),
+    "'))"
   )
 }
 
 # Print header
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
 cat("PERFORMANCE ANALYSIS TEMPLATE\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
-cat("This is a TEMPLATE script. You need to customize it for your package functions.\n")
+cat(
+  "This is a TEMPLATE script. You need to customize it for your package functions.\n"
+)
 cat("(It won't do anything useful until you do!)\n\n")
 
 # Load package
@@ -137,7 +150,9 @@ cat("Running a simple demonstration benchmark...\n\n")
 demo_result <- microbenchmark::microbenchmark(
   sqrt_loop = {
     x <- numeric(1000)
-    for (i in 1:1000) x[i] <- sqrt(i)
+    for (i in 1:1000) {
+      x[i] <- sqrt(i)
+    }
   },
   sqrt_vectorized = {
     x <- sqrt(1:1000)
@@ -147,9 +162,13 @@ demo_result <- microbenchmark::microbenchmark(
 
 print(demo_result)
 
-cat("\n==============================================================================\n")
+cat(
+  "\n==============================================================================\n"
+)
 cat("PERFORMANCE ANALYSIS TEMPLATE COMPLETE\n")
-cat("==============================================================================\n\n")
+cat(
+  "==============================================================================\n\n"
+)
 
 cat("NEXT STEPS:\n")
 cat("1. Identify functions that need performance analysis (the slow ones!)\n")
@@ -164,4 +183,6 @@ cat("- Profile with realistic data sizes (not toy examples)\n")
 cat("- Consider memory usage, not just speed (memory matters!)\n")
 cat("- Balance performance with code readability (don't sacrifice clarity)\n")
 cat("- Document why optimizations were chosen (explain the trade-offs)\n")
-cat("==============================================================================\n")
+cat(
+  "==============================================================================\n"
+)
